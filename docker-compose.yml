@@ -1,0 +1,27 @@
+
+services:
+  frontend:
+    container_name: frontend
+    build:
+      context: .
+      dockerfile: ./frontend/Dockerfile
+    ports:
+      - 4001:3000
+  backend:
+    container_name: backend
+    build:
+      context: .
+      dockerfile: ./backend/Dockerfile
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWD: example
+      POSTGRES_HOST: db
+    volumes:
+      - /home/eric/expenses-app/backend:/app #change this line
+    ports:
+      - 4000:3000
+  db:
+    container_name: db
+    image: postgres:alpine3.15
+    environment:
+      POSTGRES_PASSWORD: example
