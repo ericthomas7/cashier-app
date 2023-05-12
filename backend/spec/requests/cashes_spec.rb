@@ -5,5 +5,6 @@ describe 'Cashes API', type: :request do
         get '/api/v1/cashes'
 
         expect(response).to have_http_status(:success)
+        expect(JSON.parse(response.body).size).to eq(0)
     end
 end
