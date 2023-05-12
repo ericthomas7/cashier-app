@@ -20,7 +20,7 @@ module Api
         @cash = Cash.new(cash_params)
 
         if @cash.save
-          render json: @cash, status: :created, location: @cash
+          render json: @cash, status: :created
         else
           render json: @cash.errors, status: :unprocessable_entity
         end
