@@ -32,11 +32,15 @@ describe 'Cashes API', type: :request do
             expect(response).to have_http_status(:not_found)
         end
 
+        
+
         it 'deletes a cash' do
-
-            FactoryBot.create(:cash, value: 59.90, flow_type: 'income', description: 'Stocks')
-
-            delete '/api/v1/cashes/1'
+            cash = FactoryBot.create(:cash, value: 59.90, flow_type: 'income', description: 'Stocks')
+            
+            expect {
+                delete "/api/v1/cashes/#{cash.id}"
+            }.to change { Cash.count }.from(1).to(0)
+            
 
             expect(response).to have_http_status(:no_content)
         end
