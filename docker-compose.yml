@@ -25,13 +25,3 @@ services:
     image: postgres:alpine3.15
     environment:
       POSTGRES_PASSWORD: example
-    # ports:
-    #   - 5434:5432
-  db-test:
-    container_name: db-test
-    image: postgres:alpine3.15
-    environment:
-      POSTGRES_PASSWORD: example
-      # POSTGRES_DB: db-test
-    # ports:
-    #   - 5431:5432
