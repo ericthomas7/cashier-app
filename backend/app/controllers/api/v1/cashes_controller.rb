@@ -7,7 +7,7 @@ module Api
       def index
         @cashes = Cash.all
 
-        render json: @cashes
+        render json: CashesRepresenter.new(@cashes).as_json
       end
 
       # GET /cashes/1
