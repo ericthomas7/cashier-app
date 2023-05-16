@@ -1,0 +1,43 @@
+---
+export interface Props {
+	description: string;
+	flow_type: string;
+	flow_category_name: string;
+	value: number;
+}
+
+const { flow_type, description, flow_category_name, value } = Astro.props;
+
+const formatPrice = (value) => {
+	const stringValue = String(value);
+	const valueArray = stringValue.split(".");
+	const afterComma = valueArray[1].length==1 ? valueArray[1]+"0" : valueArray[1];
+	const beforeComma = valueArray[0];
+
+	return(`$ ${beforeComma}.${afterComma}`)
+}
+---
+
+<tr class={flow_type=="expense" ? "row-expense" : "row-income"}>
+	<td>
+		{formatPrice(value)}
+	</td>
+	<td>
+		{description}
+	</td>
+	<td>
+		{flow_category_name}
+	</td>
+</tr>
+<style>
+	.row-expense {
+		background-color: red;
+	}
+
+	.row-income {
+		background-color: green;
+	}
+    td{
+        text-align: center;
+    }
+</style>
