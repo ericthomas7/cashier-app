@@ -4,7 +4,7 @@ import axios from 'axios';
 
 // appUrl is a global variable. See resources/views/index.blade.php
 // export const BASE_URL = `${window.appUrl}/api`;
-export const BASE_URL = 'localhost:4001';
+export const BASE_URL = 'http://backend:3000/api/v1';
 
 const api = axios.create({
   baseURL: BASE_URL,
