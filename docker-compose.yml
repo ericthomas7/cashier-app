@@ -5,6 +5,9 @@ services:
     build:
       context: .
       dockerfile: ./frontend/Dockerfile
+    command: bash -c "npm run build && node ./dist/server/entry.mjs"
+    volumes:
+      - /home/eric/cashier-app/frontend:/app
     ports:
       - 4001:3000
   backend:
