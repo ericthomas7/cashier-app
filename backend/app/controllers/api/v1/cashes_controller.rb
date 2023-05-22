@@ -48,7 +48,7 @@ module Api
 
         # Only allow a list of trusted parameters through.
         def cash_params
-          params.require(:cash).permit(:value, :flow_type, :description)
+          params.require(:cash).permit(:value, :flow_category_id, :description)
         end
     end
   end
