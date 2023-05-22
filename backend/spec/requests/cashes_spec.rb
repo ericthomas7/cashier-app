@@ -1,10 +1,13 @@
 require 'rails_helper'
 
 describe 'Cashes API', type: :request do
+    let(:flow_category) { FactoryBot.create(:flow_category, flow_type: 'expense', name: 'Useless Things') }
+
     describe 'GET /cashes' do
         it 'returns all cashes' do
-            FactoryBot.create(:cash, value: 99.90, flow_type: 'expense', description: 'bought a TV')
-            FactoryBot.create(:cash, value: 10000.00, flow_type: 'income', description: 'Salary')
+
+            FactoryBot.create(:cash, value: 99.90, flow_category: flow_category, description: 'bought a TV')
+            FactoryBot.create(:cash, value: 10000.00, flow_category: flow_category, description: 'Salary')
 
             get '/api/v1/cashes'
 
@@ -17,7 +20,9 @@ describe 'Cashes API', type: :request do
         it 'create new cash' do
 
             expect {
-                post '/api/v1/cashes', params: { cash: { value: 429.90, flow_type: 'expense', description: 'bought Iphone' }}
+                post '/api/v1/cashes', params: { 
+                    cash: { value: 429.90, flow_category_id: flow_category.id, description: 'bought Iphone' },
+                }
             }.to change { Cash.count }.from(0).to(1)
 
             expect(response).to have_http_status(:created)
@@ -35,7 +40,7 @@ describe 'Cashes API', type: :request do
         
 
         it 'deletes a cash' do
-            cash = FactoryBot.create(:cash, value: 59.90, flow_type: 'income', description: 'Stocks')
+            cash = FactoryBot.create(:cash, value: 59.90, flow_category: flow_category, description: 'Stocks')
             
             expect {
                 delete "/api/v1/cashes/#{cash.id}"
