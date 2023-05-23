@@ -1,72 +1,15 @@
 ---
 import Layout from '../layouts/Layout.astro';
-import CashRow from '../components/CashRow.astro';
-import AddCash from '../components/AddCash.jsx'
 import api from '../api.js'
+import CashPage from '../containers/Cash/CashPage.jsx'
 
 const response = await api.get('/cashes')
 const cashes = response.data
 ---
 
-<Layout title="Welcome to Astro.">
+<Layout title="Cashier App">
 	<main>
-		<h1>Welcome to <span class="text-gradient">Astro</span></h1>
-        <AddCash client:load/>
-		{
-            cashes.length > 0 &&
-                <table>
-                    <thead>
-                        <th>
-                            Value
-                        </th>
-                        <th>
-                            Description
-                        </th>
-                        <th>
-                            Category
-                        </th>
-                    </thead>
-                    <tbody>
-                        {cashes.map((cash)=> {
-                            return(
-                                <CashRow
-                                    flow_category_name={cash.flow_category_name}
-                                    description={cash.description}
-                                    value={cash.value}
-                                    flow_type={cash.flow_type}
-                                />
-                            )
-                        })}
-                    </tbody>
-                </table>
-        }
+        <CashPage client:only/>
 	</main>
 </Layout>
 
-<style>
-    table{
-        margin: auto;
-    }
-    th{
-        text-align: center;
-        width: 100px;
-    }
-	main {
-		margin: auto;
-		padding: 1.5rem;
-		max-width: 60ch;
-	}
-	h1 {
-		font-size: 3rem;
-		font-weight: 800;
-		margin: 0;
-        text-align: center;
-	}
-	.text-gradient {
-		background-image: var(--accent-gradient);
-		-webkit-background-clip: text;
-		-webkit-text-fill-color: transparent;
-		background-size: 400%;
-		background-position: 0%;
-	}
-</style>
