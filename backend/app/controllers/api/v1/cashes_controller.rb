@@ -7,7 +7,7 @@ module Api
       def index
         @cashes = Cash.all
 
-        render json: CashesRepresenter.new(@cashes).as_json
+        render json: CashesRepresenter.new(@cashes).as_json_array
       end
 
       # GET /cashes/1
@@ -20,7 +20,7 @@ module Api
         @cash = Cash.new(cash_params)
 
         if @cash.save
-          render json: @cash, status: :created
+          render json: CashesRepresenter.new(@cash).as_json, status: :created
         else
           render json: @cash.errors, status: :unprocessable_entity
         end
